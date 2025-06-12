@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Registrasi Mahasiswa</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f7f8;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-spacing: 10px;
+        }
+
+        td {
+            vertical-align: top;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Registrasi Mahasiswa</h2>
+    
+    <form id="studentForm" action="Siu.html" method="post">
+        <div>   
+            <h3>Informasi Mahasiswa</h3>
+
+            <table>
+                <tr><td>NIM:</td><td><input type="text" name="nim" required></td></tr>
+
+                <tr><td>Nama:</td><td><input type="text" name="nama" required></td></tr>
+
+                <tr><td>Nama di Ijazah:</td><td><input type="text" name="nama_ijazah"></td></tr>
+
+                <tr><td>Nomor Keuangan:</td><td><input type="text" name="financial_number"></td></tr>
+
+                <tr><td>Program:</td><td><input type="text" name="program"></td></tr>
+
+                <tr><td>Jenis Kelamin:</td>
+
+                    <td>
+
+                        <select name="gender" required>
+
+                            <option value="">-- Pilih --</option>
+
+                            <option value="Male">Laki-laki</option>
+
+                            <option value="Female">Perempuan</option>
+
+                        </select>
+
+                    </td>
+
+                </tr>
+
+                <tr><td>Tempat Lahir:</td><td><input type="text" name="birth_place"></td></tr>
+
+                <tr><td>Tanggal Lahir:</td><td><input type="date" name="birth_date"></td></tr>
+
+                <tr><td>Status Akademik:</td><td><input type="text" name="academic_status"></td></tr>
+
+                <tr><td>Agama:</td><td><input type="text" name="religion"></td></tr>
+
+                <tr><td>Tempat Tinggal:</td><td><input type="text" name="residence"></td></tr>
+
+                <tr><td>Status Pernikahan:</td><td><input type="text" name="marital_status"></td></tr>
+
+                <tr><td>Fakultas:</td><td><input type="text" name="faculty"></td></tr>
+
+                <tr><td>Program Studi / Minor:</td><td><input type="text" name="study_program"></td></tr>
+
+                <tr><td>Nama Kurikulum:</td><td><input type="text" name="curriculum_name"></td></tr>
+
+                <tr><td>Academic Probation:</td><td><input type="text" name="academic_probation"></td></tr>
+
+                <tr><td>Suku / Ras:</td><td><input type="text" name="race"></td></tr>
+
+                <tr><td>Alamat:</td><td><textarea name="address" rows="3"></textarea></td></tr>
+
+            </table>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>Informasi Ibu</h3>
+
+            <table>
+
+                <tr><td>Nama:</td><td><input type="text" name="mother_name"></td></tr>
+
+                <tr><td>Alamat:</td><td><textarea name="mother_address" rows="2"></textarea></td></tr>
+
+                <tr><td>Telepon:</td><td><input type="text" name="mother_phone"></td></tr>
+
+            </table>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>Informasi Ayah</h3>
+
+            <table>
+
+                <tr><td>Nama:</td><td><input type="text" name="father_name"></td></tr>
+
+                <tr><td>Alamat:</td><td><textarea name="father_address" rows="2"></textarea></td></tr>
+
+                <tr><td>Telepon:</td><td><input type="text" name="father_phone"></td></tr>
+
+            </table>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>Informasi Wali</h3>
+
+            <table>
+
+                <tr><td>Nama:</td><td><input type="text" name="guardian_name"></td></tr>
+
+                <tr><td>Alamat:</td><td><textarea name="guardian_address" rows="2"></textarea></td></tr>
+
+                <tr><td>Telepon:</td><td><input type="text" name="guardian_phone"></td></tr>
+            </table>
+        </div>
+
+        <div style="text-align: center;">
+            <input type="submit" value="Kirim Formulir">
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('studentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Cegah pengiriman form langsung
+
+            Swal.fire({
+                title: "Apakah Anda ingin menyimpan perubahan?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Simpan",
+                denyButtonText: `Jangan Simpan`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire("Tersimpan!", "", "success").then(() => {
+                        event.target.submit(); // Kirim form setelah konfirmasi
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Perubahan tidak disimpan", "", "info");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
