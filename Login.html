@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login SIU</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url(Background.png) no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-container {
+      background-color: #001130;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 12px 25px rgb(255, 255, 255);
+      max-width: 400px;
+      width: 100%;
+      animation: slideIn 0.6s ease-out;
+      text-align: center;
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-container h2 {
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #ffffff;
+      text-align: left;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      outline: none;
+      border-color: #2575fc;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+    }
+    .btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #2575fc;
+      color: white;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #1a5ed1;
+    }
+    .btn.reload {
+      background-color: #6c63ff;
+    }
+    .btn.reload:hover {
+      background-color: #554ee7;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="form-container">
+    <img src="cropped-fav-150x150-1.png" alt="Logo" class="logo">
+    <h2>Login SIU</h2>
+
+    <form id="loginForm">
+      <label for="Username">👤 Username:</label>
+      <input type="text" id="Username" name="Username" required />
+
+      <label for="password">🔒 Password:</label>
+      <input type="password" id="password" name="password" required />
+
+      <div class="buttons">
+        <input type="submit" value="Login" class="btn">
+        <input type="reset" value="Reset" class="btn reload">
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault(); 
+
+      const username = document.getElementById('Username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const validUsername = "12345";
+      const validPassword = "12345";
+
+      if (username === validUsername && password === validPassword) {
+        Swal.fire({
+          title: "Login Berhasil",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          window.location.href = "cth.html"; 
+        });
+      } else {
+        Swal.fire({
+          title: "Login Gagal",
+          text: "Username atau Password salah!",
+          icon: "error",
+          confirmButtonText: "Coba Lagi"
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Reset Session</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #00204c, #003353);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      background-color: #e63946;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #d62828;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Reset Session</h1>
+    <button onclick="konfirmasiReset()">Reset Sesi</button>
+  </div>
+
+  <script>
+    function konfirmasiReset() {
+      Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Anda akan mereset sesi ini.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, reset!',
+        cancelButtonText: 'Batal'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Sesi di-reset!',
+            text: 'Sesi Anda berhasil di-reset.',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.href = 'Login.html';
+          });
+        } else {
+          Swal.fire(
+            'Dibatalkan',
+            'Sesi Anda tidak jadi di-reset.',
+            'info'
+          );
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

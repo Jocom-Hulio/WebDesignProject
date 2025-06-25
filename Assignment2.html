@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulir Pendaftaran UNKLAB</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background-color: #002051;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .logo-unklab {
+      height: 60px;
+      width: auto;
+    }
+    .navbar-custom {
+      background: linear-gradient(to right, #001130, #004080);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+    .navbar-brand, .nav-link {
+      color: white !important;
+    }
+    .nav-link:hover {
+      color: #ffcc00 !important;
+    }
+    .title-unklab .main-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .title-unklab .sub-title {
+      font-size: 14px;
+      font-style: italic;
+      color: #ccc;
+    }
+    .bagian-formulir {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: white;
+    }
+    .label-formulir {
+      font-weight: 500;
+    }
+    .grup-formulir {
+      margin-bottom: 15px;
+    }
+    .kontainer-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .lebar-setengah {
+      flex: 1 1 48%;
+    }
+    .lebar-penuh {
+      flex: 1 1 100%;
+    }
+    fieldset {
+      border: none;
+      padding: 0;
+    }
+    legend {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <img src="LOGO_UNIVERSITAS_KLABAT.png" alt="Logo UNKLAB" class="logo-unklab">
+      <div class="title-unklab ms-2 text-white">
+        <div class="main-title">SISTEM INFORMASI UNKLAB</div>
+        <div class="sub-title">Pathway to Excellence</div>
+      </div>
+    </div>
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="cth.html">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="Unklab.html">Tentang</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container kontainer-formulir my-5">
+  <h3 class="text-center mb-4 text-white">Formulir Pendaftaran Mahasiswa Baru UNKLAB</h3>
+
+  <form onsubmit="return showSuccess(event)">
+    <!-- Bagian Identitas Diri -->
+      <fieldset class="bagian-formulir">
+        <legend>Nomor Pendaftaran</legend>
+        <div class="grup-formulir">
+          <label class="label-formulir">Nomor Pendaftaran</label>
+          <input type="text" class="form-control input-nomor">
+        </div>
+      </fieldset>
+
+      <!-- Data Pribadi -->
+      <fieldset class="bagian-formulir">
+        <legend>Data Pribadi</legend>
+        <div class="kontainer-flex">
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Nama Lengkap</label>
+            <input type="text" class="form-control input-nama">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Tempat Lahir</label>
+            <input type="text" class="form-control input-tempat">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Tanggal Lahir</label>
+            <input type="date" class="form-control input-tanggal">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir d-block">Jenis Kelamin</label>
+            <input type="radio" name="kelamin" value="Laki-laki"> Laki-laki
+            <input type="radio" name="kelamin" value="Perempuan"> Perempuan
+          </div>
+          <div class="grup-formulir lebar-penuh">
+            <label class="label-formulir d-block">Golongan Darah</label>
+            <input type="radio" name="darah" value="A"> A
+            <input type="radio" name="darah" value="B"> B
+            <input type="radio" name="darah" value="AB"> AB
+            <input type="radio" name="darah" value="O"> O
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Suku</label>
+            <input type="text" class="form-control input-suku">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Email</label>
+            <input type="email" class="form-control input-email">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">No. Telepon</label>
+            <input type="text" class="form-control input-telepon">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">No. HP</label>
+            <input type="text" class="form-control input-hp">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Status</label>
+            <select class="form-select pilih-status">
+              <option>Belum Menikah</option>
+              <option>Menikah</option>
+            </select>
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Agama</label>
+            <input type="text" class="form-control input-agama">
+          </div>
+          <div class="grup-formulir lebar-penuh">
+            <label class="label-formulir">Alamat Rumah</label>
+            <textarea class="form-control input-alamat-rumah" rows="2"></textarea>
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Kode Pos</label>
+            <input type="text" class="form-control input-kodepos">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Informasi Sekolah -->
+      <fieldset class="bagian-formulir">
+        <legend>Informasi Sekolah</legend>
+        <div class="kontainer-flex">
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Nama Sekolah</label>
+            <input type="text" class="form-control input-nama-sekolah">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Program</label>
+            <input type="text" class="form-control input-program">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">No. Telepon Sekolah</label>
+            <input type="text" class="form-control input-telepon-sekolah">
+          </div>
+          <div class="grup-formulir lebar-penuh">
+            <label class="label-formulir">Alamat Sekolah</label>
+            <textarea class="form-control input-alamat-sekolah" rows="2"></textarea>
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Kode Pos</label>
+            <input type="text" class="form-control input-kodepos-sekolah">
+          </div>
+        </div>
+      </fieldset>
+
+        <fieldset class="bagian-formulir">
+          <legend>Informasi Orang Tua</legend>
+          <div class="kontainer-flex">
+            <!-- Ayah -->
+            <div class="lebar-setengah">
+              <div class="grup-formulir">
+                <label class="label-formulir">Nama Ayah</label>
+                <input type="text" class="form-control input-nama-ayah">
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">No. HP Ayah</label>
+                <input type="text" class="form-control input-hp-ayah">
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">Email Ayah</label>
+                <input type="email" class="form-control input-email-ayah">
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">Pendidikan Ayah</label>
+                <select class="form-select pilih-pendidikan-ayah">
+                  <option>SD</option>
+                  <option>SMA</option>
+                </select>
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">Agama Ayah</label>
+                <input type="text" class="form-control input-agama-ayah">
+              </div>
+            </div>
+
+            <!-- Ibu -->
+            <div class="lebar-setengah">
+              <div class="grup-formulir">
+                <label class="label-formulir">Nama Ibu</label>
+                <input type="text" class="form-control input-nama-ibu">
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">No. HP Ibu</label>
+                <input type="text" class="form-control input-hp-ibu">
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">Email Ibu</label>
+                <input type="email" class="form-control input-email-ibu">
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">Pendidikan Ibu</label>
+                <select class="form-select pilih-pendidikan-ibu">
+                  <option>SD</option>
+                  <option>SMA</option>
+                </select>
+              </div>
+              <div class="grup-formulir">
+                <label class="label-formulir">Agama Ibu</label>
+                <input type="text" class="form-control input-agama-ibu">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+      <!-- Informasi Wali -->
+      <fieldset class="bagian-formulir">
+        <legend>Informasi Wali</legend>
+        <div class="kontainer-flex">
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Nama Lengkap</label>
+            <input type="text" class="form-control input-nama-wali">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Hubungan Keluarga</label>
+            <input type="text" class="form-control input-hubungan">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Email</label>
+            <input type="email" class="form-control input-email-wali">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Telepon Rumah</label>
+            <input type="text" class="form-control input-telepon-rumah">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">No. HP</label>
+            <input type="text" class="form-control input-hp-wali">
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Pendidikan</label>
+            <select class="form-select pilih-pendidikan-wali">
+              <option>SD</option><option>SMA</option>
+            </select>
+          </div>
+          <div class="grup-formulir lebar-setengah">
+            <label class="label-formulir">Agama</label>
+            <input type="text" class="form-control input-agama-wali">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Pernyataan dan Tombol -->
+      <fieldset class="bagian-formulir">
+        <legend>Pernyataan dan Tanggal</legend>
+        <div class="grup-formulir">
+          <input class="form-check-input" type="checkbox" required>
+          <label class="label-formulir">
+            Saya menyatakan bahwa semua data dalam Formulir Pendaftaran Mahasiswa Baru ini adalah benar dan lengkap.
+          </label>
+        </div>
+        <div class="grup-formulir lebar-setengah">
+          <label class="label-formulir">Airmadidi,</label>
+          <input type="date" class="form-control input-tanggal-formulir">
+        </div>
+        <div class="grup-formulir kontainer-flex">
+          <button type="reset" class="btn btn-secondary">Reset</button>
+          <button type="submit" class="btn btn-primary">Kirim</button>
+        </div>
+      </fieldset>
+  </form>
+</div>
+
+<script>
+  function showSuccess(e) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: 'Pendaftaran Berhasil!',
+      text: 'Terima kasih telah mendaftar. Anda akan diarahkan ke halaman beranda.',
+      icon: 'success',
+      confirmButtonText: 'OK'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "cth.html";
+      }
+    });
+
+    return false;
+  }
+</script>
+<footer>
+  &copy; 2025 Universitas Klabat. Semua hak dilindungi.
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
