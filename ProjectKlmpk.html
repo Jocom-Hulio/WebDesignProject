@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoran Rasa Lokal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.min.css">
+    
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Playfair Display', serif;
+            background-image: url(https://asset.kompas.com/crops/MjeYNPCUIWNn6onvIjj5p9kdCiY=/1x0:2693x1795/1200x800/data/photo/2022/04/01/624729f498ad4.jpg);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            padding-bottom: 70px; /* Add padding to prevent content from being covered by the bottom navbar */
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(229, 228, 160, 0.8); /* Background with transparency */
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        /* Main Navigation Bar Styles */
+        nav {
+            background: #05694b;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 15px;
+            padding: 10px 15px;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background: #5f91c6;
+            border-radius: 5px;
+        }
+
+        /* Main Container Styles */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9); /* White background with transparency */
+        }
+
+        /* Page Specific Styles (for sections) */
+        .page {
+            text-align: center;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #4f0304;
+            color: white;
+        }
+
+        /* Image Styles */
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 50px;
+        }
+
+        /* Card Styles (Bootstrap) */
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal Image Styles */
+        .modal-img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Custom Font Families for specific sections */
+        #beranda {
+            font-family: 'Poppins', cursive;
+        }
+
+        #kontak {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        #about {
+            font-family: 'Pacifico', cursive;
+        }
+
+        #fullMenu {
+            font-family: 'Times New Roman', serif;
+        }
+
+        /* Heading Styles */
+        h1, h2, h3, h4 {
+            font-family: 'Script', Dancing Script;
+            font-weight: 700;
+        }
+
+        /* Bottom Navbar Styles */
+        .fixed-bottom {
+            height: 60px; /* Reduced navbar height */
+            padding: 0; /* Remove default Bootstrap padding if too large */
+        }
+
+        .fixed-bottom .nav-link {
+            padding: 8px 0; /* Smaller vertical padding */
+        }
+
+        .fixed-bottom .nav-link i {
+            font-size: 1.2rem; /* Smaller icon size */
+        }
+
+        .fixed-bottom .nav-link .small {
+            font-size: 0.7rem; /* Smaller "Menu" text size */
+            line-height: 1; /* Adjust line height for less space */
+        }
+    </style>
+</head>
+<body>
+    <header>Restoran Khas Indonesia</header>
+
+    <nav>
+        <a href="#" onclick="showPage('beranda')">Beranda</a>
+        <a href="#" onclick="showPage('kontak')">Kontak Kami</a>
+        <a href="#" onclick="showPage('about')">Tentang Kami</a>
+        <a href="#" onclick="showPage('galeri')">Galeri</a>
+        <a href="#" onclick="showPage('reservasi')">Reservasi</a>
+
+        <div class="offcanvas offcanvas-end offcanvas-transparan" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 class="Login" id="LoginLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body offcanvas-background">
+                <form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="beranda" class="page">
+            <h1>Selamat Datang di Restoran Khas Indonesia</h1>
+            <p>Kami menyajikan berbagai kuliner dengan cita rasa otentik. Suasana restoran kami juga dirancang untuk tetap sesuai dengan selera Anda.</p>
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://assets.thevocket.com/sites/1/2017/02/makana-indonesia.jpg" class="d-block w-100" alt="Makanan Tradisional">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://cdngnfi2.sgp1.cdn.digitaloceanspaces.com/gnfi/uploads/images/2022/10/2411572022-Kue-Lapis-Legit-menjadi-kue-atau-jajanan-manis-tradisional-khas-Indonesia-berbahan-baku-tepung-yang-perlu-di-coba-serta-dapat-ditemui-sebagai-Jajanan-Pasar-Good-News-From-Indonesia.jpg" class="d-block w-100" alt="Kuliner Indonesia">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://api2.kemenparekraf.go.id/storage/app/resources/EKONOMI_KREATIF_KULINER_shutterstock_1960582063_Ariyani_Tedjo_d94f803593.jpg" class="d-block w-100" alt="Kue Tradisional">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="kontak" class="page">
+            <h1>Hubungi Kami</h1>
+            <p>Email: RestoranKhasIndonesia@gmail.com</p>
+            <p>Instagram: @Restoran_KhasIndonesia</p>
+            <p>No. Telepon: 081234567890</p>
+            <p>WhatsApp: 081234567890</p>
+        </div>
+
+        <div id="about" class="page">
+            <h1>Tentang Restoran Khas Manado</h1>
+            <p>Restoran ini berdiri sejak tahun 2019, didirikan oleh empat orang yang mencintai kuliner lokal. Tujuan kami adalah memperkenalkan makanan khas Indonesia kepada lebih banyak orang, termasuk warga negara asing.</p>
+        </div>
+
+        <div id="fullMenu" class="page" style="display: none;">
+            <h1>Daftar Menu Lengkap</h1>
+            <table>
+                <tr><th>Makanan Berat</th><th>Harga</th></tr>
+                <tr><td>Nasi Goreng</td><td>Rp20.000</td></tr>
+                <tr><td>Mie Ayam</td><td>Rp15.000</td></tr>
+                <tr><td>Sate Ayam</td><td>Rp25.000</td></tr>
+                <tr><td>Rendang</td><td>Rp25.000</td></tr>
+                <tr><td>Bubur manado</td><td>Rp25.000</td></tr>
+                <tr><td>Sate kambing</td><td>Rp25.000</td></tr>
+                <tr><td>Ketoprak</td><td>Rp25.000</td></tr>
+                <tr><td>Pempek</td><td>Rp25.000</td></tr>
+                <tr><td>Bakso</td><td>Rp25.000</td></tr>
+                <tr><td>Coto Makasar</td><td>Rp25.000</td></tr>
+                <tr><td>Coto Betawi</td><td>Rp25.000</td></tr>
+                <tr><td>Ayam Geprek</td><td>Rp25.000</td></tr>
+                <tr><td>Seblak</td><td>Rp25.000</td></tr>
+                <tr><th>Dessert</th><th>Harga</th></tr>
+                <tr><td>Bika ambon</td><td>Rp25.000</td></tr>
+                <tr><td>Nagosari</td><td>Rp25.000</td></tr>
+                <tr><td>Risol</td><td>Rp25.000</td></tr>
+                <tr><td>Pastel</td><td>Rp25.000</td></tr>
+                <tr><td>Klapertart</td><td>Rp25.000</td></tr>
+                <tr><td>Puding Fla</td><td>Rp19.000</td></tr>
+                <tr><td>Brownis</td><td>Rp25.000</td></tr>
+                <tr><td>Martabak Manis</td><td>Rp25.000</td></tr>
+                <tr><td>Kerak telor</td><td>Rp25.000</td></tr>
+                <tr><th>Minuman</th><th>Harga</th></tr>
+                <tr><td>Jus Alpukat</td><td>Rp12.000</td></tr>
+                <tr><td>Es Serut</td><td>Rp10.000</td></tr>
+                <tr><td>Es Pisang Ijo</td><td>Rp16.000</td></tr>
+                <tr><td>Es kacang merah</td><td>Rp25.000</td></tr>
+                <tr><td>Es durian</td><td>Rp25.000</td></tr>
+                <tr><td>Es teh manis</td><td>Rp25.000</td></tr>
+                <tr><td>Es alpukat brenebon</td><td>Rp25.000</td></tr>
+                <tr><td>Teh tarik</td><td>Rp25.000</td></tr>
+            </table>
+        </div>
+
+        <div id="galeri" class="page">
+            <h1>Galeri</h1>
+            <div class="row">
+                <div class="col-md-4"><img src="https://awsimages.detik.net.id/community/media/visual/2021/04/22/5-makanan-enak-dari-indonesia-dan-malaysia-yang-terkenal-enak-5.jpeg?w=700&q=90" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://manfaatcara.com/wp-content/uploads/2019/11/rendang.jpeg" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://guide.horego.com/wp-content/uploads/2023/12/indonesia-6033061_1280-jpg.webp" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://imgx.sonora.id/crop/0x0:0x0/700x465/photo/2022/01/06/bikajpg-20220106062343.jpg" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://guide.horego.com/wp-content/uploads/2023/11/martabak-bogor-terenak-jpeg.webp" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://cdn1.katadata.co.id/media/images/thumb/2022/08/30/Vla_Puding-2022_08_30-12_02_23_68e5bc4f1123d5ae81f19ffbe38c3df1_960x640_thumb.jpg" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://meramuda.com/wp-content/uploads/2019/12/Andalkan-Es-Teh-Warung-Ini-Laris-Manis-Sejak-Tahun-1994-cover.jpg" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://www.astronauts.id/blog/wp-content/uploads/2024/02/Es-Teler-Durian.jpg" class="img-fluid"></div>
+                <div class="col-md-4"><img src="https://initu.id/wp-content/uploads/2020/03/jus.jpeg" class="img-fluid"></div>
+            </div>
+        </div>
+
+        <div id="reservasi" class="page">
+            <h1>Reservasi</h1>
+            <form>
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama:</label>
+                    <input type="text" class="form-control" id="nama">
+                </div>
+                <div class="mb-3">
+                    <label for="tanggal" class="form-label">Tanggal:</label>
+                    <input type="date" class="form-control" id="tanggal">
+                </div>
+                <div class="container mt-5 text-center">
+                    <h1>Cicipi berbagai masakan khas Indonesia!</h1>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#menuModal">
+                        Lakukan Reservasi
+                    </button>
+                </div>
+            </form>
+
+            <div class="modal fade" id="menuModal" tabindex="-1" aria-labelledby="menuModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="menuModalLabel">Detail Menu: Nasi Goreng Spesial</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="https://assets.thevocket.com/sites/1/2017/02/makana-indonesia.jpg" class="img-fluid rounded mb-3" alt="Nasi Goreng Spesial">
+                            <div class="mb-3">
+                                <label for="jumlahPesanan" class="form-label">Jumlah Pesanan:</label>
+                                <input type="number" class="form-control" id="jumlahPesanan" value="1" min="1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="menuPilihan" class="form-label">Pilih Menu:</label>
+                                <select class="form-select" id="menuPilihan">
+                                    <option value="Nasi Goreng Spesial">Nasi Goreng Spesial</option>
+                                    <option value="Mie Ayam">Mie Ayam</option>
+                                    <option value="Sate Ayam">Sate Ayam</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="button" class="btn btn-success" onclick="processReservation()">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="modalImage" class="modal-img" src="" alt="Detail Image">
+                        <p id="modalBody"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.0/dist/sweetalert2.all.min.js"></script>
+
+    <script>
+        // Function to display a specific page and hide others
+        function showPage(pageId) {
+            let pages = document.getElementsByClassName("page");
+            for (let page of pages) {
+                page.style.display = "none";
+            }
+            document.getElementById(pageId).style.display = "block";
+        }
+
+        // Function to run when the page finishes loading
+        window.onload = function() {
+            showPage('beranda'); // Default to 'beranda' on load
+        };
+
+        // Function to display the detail modal with menu information
+        function showDetail(title, description, imageUrl) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalBody').innerText = description;
+            document.getElementById('modalImage').src = imageUrl;
+            var detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+            detailModal.show();
+        }
+
+        // Function to handle the "Pesan Sekarang" button with SweetAlert2
+        function processReservation() {
+            // Close the current modal (menuModal)
+            var menuModal = bootstrap.Modal.getInstance(document.getElementById('menuModal'));
+            if (menuModal) {
+                menuModal.hide();
+            }
+
+            // Show SweetAlert2 message
+            Swal.fire({
+                icon: 'success',
+                title: 'Pesanan Diproses!',
+                text: 'Terima kasih atas reservasi Anda. Kami akan segera menghubungi Anda untuk konfirmasi.',
+                showConfirmButton: false, // The alert will close automatically
+                timer: 3000 // Close after 3 seconds
+            }).then(() => {
+                // This code runs AFTER the SweetAlert2 message closes
+                document.getElementById('nama').value = ''; // Clears the 'nama' input
+                document.getElementById('tanggal').value = ''; // Clears the 'tanggal' input
+                showPage('beranda'); // This brings you back to the 'beranda' page
+            });
+        }
+    </script>
+
+    <nav class="navbar navbar-light bg-light fixed-bottom">
+        <ul class="navbar-nav nav-justified w-100 d-flex flex-row">
+            <li class="nav-item flex-fill text-center">
+                <a href="#" class="nav-link active" onclick="showPage('fullMenu')">
+                    <i class="fas fa-bars"></i>
+                    <div class="small">Menu</div>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
