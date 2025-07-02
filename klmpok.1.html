@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #002293d1; /* Dark blue for navbar */
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-weight: 500;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #e0e0e0;
+        }
+
+        .welcome-text {
+            color: #fff;
+            font-size: 1rem;
+            margin-right: 20px;
+        }
+
+        /* Styling untuk link Logout agar terlihat seperti link di navbar */
+        .navbar-nav .logout-link {
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .navbar-nav .logout-link:hover {
+            color: #e0e0e0;
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .sidebar h3 {
+            color: #004d99;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar .nav-link {
+            color: #555;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #e0f2f7;
+            color: #004d99;
+        }
+
+        .content-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Academic Info Boxes */
+        .card-custom {
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box {
+            background-color: #e0f7fa;
+            border-left: 5px solid #00acc1;
+        }
+
+        .success-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #43a047;
+        }
+
+        .card-custom .card-body {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-custom .icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            color: #004d99;
+        }
+
+        .info-box .icon {
+            color: #00acc1;
+        }
+
+        .success-box .icon {
+            color: #43a047;
+        }
+
+        .card-custom .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .card-custom .card-text {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        /* My Profile Styling */
+        .my-profile-container {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .my-profile-container header h1 {
+            color: #004d99;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* --- Perubahan pada CSS untuk My Profile --- */
+        .profile-content {
+            display: flex;
+            flex-direction: column; /* Mengubah layout menjadi kolom */
+            align-items: flex-start; /* Sejajarkan ke kiri */
+            gap: 20px; /* Kurangi sedikit jarak antar elemen utama */
+        }
+
+        .profile-image {
+            margin-bottom: 20px; /* Tambahkan sedikit ruang di bawah gambar */
+        }
+
+        .profile-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #004d99;
+            padding: 5px;
+            background-color: #fff;
+        }
+
+        .profile-details {
+            width: 100%; /* Pastikan details mengambil lebar penuh di bawah gambar */
+        }
+
+        .detail-group {
+            display: flex;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px dotted #eee;
+        }
+
+        .detail-group:last-of-type {
+            border-bottom: none;
+        }
+
+        .detail-group .label {
+            font-weight: bold;
+            width: 200px;
+            color: #555;
+        }
+
+        .detail-group .value {
+            flex-grow: 1;
+            color: #333;
+        }
+
+        .profile-details h2 {
+            color: #004d99;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        /* --- Akhir Perubahan pada CSS untuk My Profile --- */
+
+        /* Verification Status */
+        .verification-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .verification-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #e8f5e9;
+            border-left: 5px solid #43a047;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .verification-item .icon {
+            font-size: 2rem;
+            color: #43a047;
+            margin-right: 15px;
+        }
+
+        .verification-item p {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .verification-item .thank-you {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Document Completeness */
+        .document-completeness-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .document-category {
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #0056b3;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .document-list {
+            padding: 0;
+            list-style: none;
+        }
+
+        .document-item {
+            padding: 8px 0;
+            border-bottom: 1px dotted #eee;
+            display: grid;
+            grid-template-columns: 200px 1fr auto;
+            gap: 10px;
+            align-items: baseline;
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .document-item .label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .document-item .value {
+            color: #555;
+        }
+
+        .document-item .status {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .document-item .status.complete {
+            color: #28a745;
+        }
+
+        .document-item .status.pending {
+            color: #007bff;
+        }
+
+        .document-item .status.rejected {
+            color: #dc3545;
+        }
+
+        .document-item .status.not-submitted {
+            color: #6c757d;
+        }
+
+        /* Aturan dan Keputusan */
+        .aturan-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .aturan-content .aturan-section {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .aturan-content .aturan-section:last-child {
+            border-bottom: none;
+        }
+
+        .aturan-content h5 {
+            color: #0056b3;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .aturan-content p,
+        .aturan-content li {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .aturan-content ol {
+            padding-left: 20px;
+        }
+
+        /* Registration Status */
+        .registration-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .registration-message-box {
+            display: flex;
+            align-items: center;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .registration-message-box .icon {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-right: 15px;
+        }
+
+        .registration-message-box p {
+            color: #856404;
+            margin-bottom: 0;
+        }
+
+        /* Semester Cost Estimation */
+        .cost-estimation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .cost-estimation-header .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cost-estimation-header .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .cost-estimation-info-box {
+            display: flex;
+            align-items: center;
+            background-color: #e0f7fa;
+            border-left: 5px solid #00acc1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .cost-estimation-info-box .icon {
+            font-size: 2rem;
+            color: #00acc1;
+            margin-right: 15px;
+        }
+
+        .cost-estimation-info-box p {
+            color: #01579b;
+            margin-bottom: 0;
+        }
+
+        .student-details-table {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .student-details-table .detail-row {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px dotted #e9ecef;
+        }
+
+        .student-details-table .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .student-details-table .detail-label {
+            font-weight: bold;
+            width: 250px;
+            color: #495057;
+        }
+
+        .student-details-table .detail-value {
+            flex-grow: 1;
+            color: #343a40;
+        }
+
+        /* Add/Drop Registration Subject */
+        .add-drop-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .add-drop-message-box {
+            display: flex;
+            align-items: center;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .add-drop-message-box .icon {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-right: 15px;
+        }
+
+        .add-drop-message-box p {
+            color: #856404;
+            margin-bottom: 0;
+        }
+
+        /* Drop Subject */
+        .drop-subject-header .nav-tabs {
+            border-bottom: 2px solid #dee2e6;
+            margin-bottom: 20px;
+        }
+
+        .drop-subject-header .nav-link {
+            color: #495057;
+            border: 1px solid transparent;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: -2px;
+            transition: all 0.3s ease;
+        }
+
+        .drop-subject-header .nav-link.active {
+            color: #004d99;
+            background-color: #fff;
+            border-color: #dee2e6 #dee2e6 #fff;
+            font-weight: bold;
+        }
+
+        .drop-subject-header .nav-link:hover:not(.active) {
+            border-color: #e9ecef #e9ecef #dee2e6;
+        }
+
+        .drop-subject-table-container {
+            overflow-x: auto;
+        }
+
+        .drop-subject-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .drop-subject-table th,
+        .drop-subject-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .drop-subject-table th {
+            background-color: #004d99;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .drop-subject-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .drop-subject-table .drop-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .drop-subject-table .drop-btn:hover {
+            background-color: #c82333;
+        }
+
+        /* View Grade (Transcript) */
+        .transcript-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .transcript-header .btn-group .btn {
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .transcript-header .btn-group .btn.active {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .transcript-header .btn-group .btn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .transcript-table-container {
+            overflow-x: auto;
+        }
+
+        .transcript-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .transcript-table th,
+        .transcript-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .transcript-table th {
+            background-color: #004d99;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .transcript-table .semester-row td {
+            background-color: #e9ecef;
+            font-weight: bold;
+            color: #004d99;
+        }
+
+        .transcript-table .total-grade-row td {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .transcript-table .total-grade-row td:last-child {
+            text-align: left;
+        }
+
+        /* Teacher Evaluation */
+        .teacher-evaluation-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .teacher-evaluation-message-box {
+            display: flex;
+            align-items: center;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .teacher-evaluation-message-box .icon {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-right: 15px;
+        }
+
+        .teacher-evaluation-message-box p {
+            color: #856404;
+            margin-bottom: 0;
+        }
+
+        /* Ospek & KKN KKU */
+        .ospek-kkn-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #004d99;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .ospek-kkn-table-container {
+            overflow-x: auto;
+        }
+
+        .ospek-kkn-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .ospek-kkn-table th,
+        .ospek-kkn-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .ospek-kkn-table th {
+            background-color: #004d99;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .ospek-kkn-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">UNKLAB</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" data-target="homeContent">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="myProfileContent">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="verificationContent">Verification Status</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="myDocumentContent">My Document</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-target="aturanKeputusanContent">Aturan & Keputusan</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <span class="nav-link welcome-text">
+                            Welcome, Gandey, Gracella
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link logout-link" href="loginn.html">Logout</a> </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <h3>Academic</h3>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="registrationContent">Registration</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="semesterCostEstimationContent">Semester Cost Estimation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="addDropRegistrationSubjectContent">Add Drop Registration Subject</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="dropSubjectContent">Drop Subject</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="viewGradeContent">View Grade</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">View Schedule</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="teacherEvaluationContent">Teacher Evaluation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" data-target="viewOspekKKNKkuContent">View Ospek & KKN KKU</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div id="homeContent" class="content-section active">
+                    <div class="card card-custom info-box">
+                        <div class="card-body">
+                            <i class="fas fa-info-circle icon"></i>
+                            <h4 class="card-title">Academic</h4>
+                            <p class="card-text">Maksimum waktu untuk setiap mahasiswa menyelesaikan perkuliahan di satu program studi adalah tujuh (7) tahun terhitung sejak mahasiswa tersebut terdaftar pada program studi. Informasi lebih lanjut dapat dilihat melalui tautan <a href="#" class="text-primary text-decoration-underline">Aturan dan Keputusan</a></p>
+                        </div>
+                    </div>
+
+                    <div class="card card-custom info-box">
+                        <div class="card-body">
+                            <i class="fas fa-exclamation-triangle icon"></i>
+                            <h4 class="card-title">Academic</h4>
+                            <p class="card-text">Periksa kembali jadwal perkuliahan anda sebelum mengikuti perkuliahan. (Please re-check your schedule before class start)</p>
+                        </div>
+                    </div>
+
+                    <div class="card card-custom success-box">
+                        <div class="card-body">
+                            <i class="fas fa-check-circle icon"></i>
+                            <h4 class="card-title">SIU</h4>
+                            <p class="card-text">Welcome back <strong>Gandey, Gracella</strong>. It's nice to meet you again. This is your last activity using this system: Last login date: 2025-07-02 07:48:10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myProfileContent" class="content-section">
+                    <div class="my-profile-container">
+                        <header>
+                            <h1>My Profile</h1>
+                        </header>
+                        <div class="profile-content">
+                            <div class="profile-image">
+                                <img src="https://via.placeholder.com/150x150?text=Profile" alt="Profile Picture">
+                            </div>
+                            <div class="profile-details">
+                                <div class="detail-group">
+                                    <div class="label">Registration Number/ NIM</div>
+                                    <div class="value">S22229024 / 105022410036</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Name</div>
+                                    <div class="value">Gandey, Gracella</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Program</div>
+                                    <div class="value">Normal Program</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Name in IJAZAH</div>
+                                    <div class="value">Gracelia Gandey</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Financial Number</div>
+                                    <div class="value">S22229024</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Gender</div>
+                                    <div class="value">Female</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Place/ Date of Birth</div>
+                                    <div class="value">Kuyanga, 2005-09-20</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Academic Status/ Curriculum Block</div>
+                                    <div class="value">Active/ Unblock</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Religion</div>
+                                    <div class="value">Kristen Advent</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Residence</div>
+                                    <div class="value">Jasmine 2 Dormitory</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Marital status</div>
+                                    <div class="value">Single</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Faculty</div>
+                                    <div class="value">Fakultas Ilmu Komputer</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Program Study/ Minor</div>
+                                    <div class="value">Informatika/-</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Curriculum Name</div>
+                                    <div class="value">Informatika 2024-2028</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Academic Probation</div>
+                                    <div class="value"></div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Race</div>
+                                    <div class="value">Minahasa</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Address</div>
+                                    <div class="value">Kuyanga Satu kecamatan Tombatu Utara, Minahasa Tenggara, Sulawesi Utara, Indonesia</div>
+                                </div>
+
+                                <h2>My Mother</h2>
+                                <div class="detail-group">
+                                    <div class="label">Name</div>
+                                    <div class="value">Novel Tampomuri</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Address</div>
+                                    <div class="value">Kuyanga Satu kecamatan Tombatu Utara</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Phone</div>
+                                    <div class="value"></div>
+                                </div>
+
+                                <h2>My Father</h2>
+                                <div class="detail-group">
+                                    <div class="label">Name</div>
+                                    <div class="value">Noldi Gandey</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Address</div>
+                                    <div class="value">Kuyanga Satu kecamatan Tombatu Utara</div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Phone</div>
+                                    <div class="value"></div>
+                                </div>
+
+                                <h2>My Guardian</h2>
+                                <div class="detail-group">
+                                    <div class="label">Name</div>
+                                    <div class="value"></div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Address</div>
+                                    <div class="value"></div>
+                                </div>
+                                <div class="detail-group">
+                                    <div class="label">Phone</div>
+                                    <div class="value"></div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+
+
+                <div id="verificationContent" class="content-section">
+                    <div class="verification-header">
+                        UNKLAB's Student Verification Status For Registration
+                    </div>
+
+                    <div class="verification-item">
+                        <i class="fas fa-check-circle icon"></i>
+                        <div>
+                            <p>You are allowed by Business Office to make a registration for this semester.</p>
+                            <p class="thank-you">Thank you,<br><strong>Business Office</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="verification-item">
+                        <i class="fas fa-check-circle icon"></i>
+                        <div>
+                            <p>You are allowed by Village Dean to make a registration for this semester.</p>
+                            <p class="thank-you">Thank you,<br><strong>Village Dean</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="verification-item">
+                        <i class="fas fa-check-circle icon"></i>
+                        <div>
+                            <p>Your time period in this Program Study was normal.</p>
+                            <p class="thank-you">Thank you,<br><strong>Head Department of Program UNKLAB's Student</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="verification-item">
+                        <i class="fas fa-check-circle icon"></i>
+                        <div>
+                            <p>You are an active student.</p>
+                            <p class="thank-you">Thank you,<br><strong>Academic Department of UNKLAB's Student</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="myDocumentContent" class="content-section">
+                    <div class="document-completeness-header">
+                        Document Completeness
+                    </div>
+
+                    <p>Overall Document Completion: <span id="overallDocCompletion"></span>% (<span id="completedDocCount"></span> of <span id="totalDocCount"></span> documents completed)</p>
+                    <div class="progress" style="height: 25px; margin-bottom: 20px;">
+                        <div class="progress-bar" role="progressbar" id="docProgressBar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+
+                    <div class="document-category">I. Dokumen Identitas</div>
+                    <ul class="document-list">
+                        <li class="document-item" data-status="Completed">
+                            <span class="label">KTP</span>
+                            <span class="value">: Submitted</span>
+                            <span class="status complete"><i class="fas fa-check-circle"></i> Completed</span>
+                            <span class="col-12 text-muted small mt-1">Notes: Valid.</span>
+                        </li>
+                        <li class="document-item" data-status="Completed">
+                            <span class="label">Kartu Keluarga</span>
+                            <span class="value">: Submitted</span>
+                            <span class="status complete"><i class="fas fa-check-circle"></i> Completed</span>
+                            <span class="col-12 text-muted small mt-1">Notes: Valid.</span>
+                        </li>
+                        <li class="document-item" data-status="Not Submitted">
+                            <span class="label">Passport</span>
+                            <span class="value">: Not Submitted</span>
+                            <span class="status not-submitted"><i class="fas fa-exclamation-circle"></i> Not Submitted</span>
+                            <span class="col-12 text-muted small mt-1">Notes: Diperlukan untuk mahasiswa internasional.</span>
+                        </li>
+                    </ul>
+
+                    <div class="document-category">II. Dokumen Akademik</div>
+                    <ul class="document-list">
+                        <li class="document-item" data-status="Completed">
+                            <span class="label">Ijazah Terakhir</span>
+                            <span class="value">: Submitted</span>
+                            <span class="status complete"><i class="fas fa-check-circle"></i> Completed</span>
+                            <span class="col-12 text-muted small mt-1">Notes: Valid.</span>
+                        </li>
+                        <li class="document-item" data-status="Pending">
+                            <span class="label">Transkrip Nilai</span>
+                            <span class="value">: Submitted</span>
+                            <span class="status pending"><i class="fas fa-hourglass-half"></i> Pending</span>
+                            <span class="col-12 text-muted small mt-1">Notes: Sedang dalam proses verifikasi oleh departemen akademik.</span>
+                        </li>
+                    </ul>
+
+                    <div class="document-category">III. Dokumen Lain-lain</div>
+                    <ul class="document-list">
+                        <li class="document-item" data-status="Not Submitted">
+                            <span class="label">Surat Keterangan Sehat</span>
+                            <span class="value">: Not Submitted</span>
+                            <span class="status not-submitted"><i class="fas fa-exclamation-circle"></i> Not Submitted</span>
+                            <span class="col-12 text-muted small mt-1">Notes: Diperlukan sebelum semester dimulai.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="aturanKeputusanContent" class="content-section">
+                    <div class="aturan-header">
+                        Aturan & Keputusan
+                    </div>
+                    <div class="aturan-content">
+                        <div class="aturan-section">
+                            <h5>1. Batas Waktu Studi</h5>
+                            <p>Maksimum waktu untuk setiap mahasiswa menyelesaikan perkuliahan di satu program studi adalah tujuh (7) tahun terhitung sejak mahasiswa tersebut terdaftar pada program studi.</p>
+                            <p>Apabila mahasiswa tidak dapat menyelesaikan studinya dalam batas waktu yang ditentukan, maka mahasiswa dianggap mengundurkan diri atau diberhentikan dari program studi.</p>
+                        </div>
+                        <div class="aturan-section">
+                            <h5>2. Kewajiban Registrasi Ulang</h5>
+                            <p>Setiap mahasiswa wajib melakukan registrasi ulang pada setiap semester sesuai dengan kalender akademik yang berlaku. Kegagalan dalam registrasi ulang dapat mengakibatkan status non-aktif atau bahkan kehilangan status mahasiswa.</p>
+                        </div>
+                        <div class="aturan-section">
+                            <h5>3. Pengisian Kartu Rencana Studi (KRS)</h5>
+                            <p>Mahasiswa wajib mengisi KRS secara online pada masa yang telah ditentukan. Mata kuliah yang diambil harus sesuai dengan kurikulum dan prasyarat yang berlaku.</p>
+                        </div>
+                        <div class="aturan-section">
+                            <h5>4. Tata Tertib Akademik</h5>
+                            <ol>
+                                <li>Mahasiswa wajib mengikuti seluruh kegiatan perkuliahan sesuai jadwal.</li>
+                                <li>Mahasiswa dilarang melakukan plagiarisme atau kecurangan akademik lainnya.</li>
+                                <li>Setiap mahasiswa bertanggung jawab menjaga nama baik almamater.</li>
+                            </ol>
+                        </div>
+                        <div class="aturan-section">
+                            <h5>5. Kebijakan Keuangan</h5>
+                            <p>Pembayaran biaya kuliah wajib dilakukan sesuai jadwal yang ditetapkan oleh kantor keuangan. Keterlambatan pembayaran dapat mengakibatkan sanksi akademik atau administrasi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="registrationContent" class="content-section">
+                    <div class="registration-header">
+                        Registration Status
+                    </div>
+                    <div class="registration-message-box">
+                        <i class="fas fa-info-circle icon"></i>
+                        <div>
+                            <p>Saat ini belum ada periode registrasi yang aktif. Silakan tunggu informasi selanjutnya dari bagian akademik.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="semesterCostEstimationContent" class="content-section">
+                    <div class="cost-estimation-header">
+                        <span>Semester Cost Estimation</span>
+                        <button class="btn btn-primary"><i class="fas fa-print"></i> Print</button>
+                    </div>
+                    <div class="cost-estimation-info-box">
+                        <i class="fas fa-dollar-sign icon"></i>
+                        <div>
+                            <p>Perkiraan biaya kuliah untuk semester ini akan ditampilkan di sini setelah periode registrasi dibuka.</p>
+                        </div>
+                    </div>
+                    <div class="student-details-table">
+                        <div class="detail-row">
+                            <div class="detail-label">NIM:</div>
+                            <div class="detail-value">105022410036</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Nama:</div>
+                            <div class="detail-value">Gandey, Gracella</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Fakultas:</div>
+                            <div class="detail-value">Fakultas Ilmu Komputer</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Program Studi:</div>
+                            <div class="detail-value">Informatika</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Semester:</div>
+                            <div class="detail-value">Ganjil 2024/2025</div>
+                        </div>
+                        </div>
+                </div>
+
+                <div id="addDropRegistrationSubjectContent" class="content-section">
+                    <div class="add-drop-header">
+                        Add Drop Registration Subject
+                    </div>
+                    <div class="add-drop-message-box">
+                        <i class="fas fa-exclamation-triangle icon"></i>
+                        <div>
+                            <p>Periode tambah/hapus mata kuliah belum aktif. Silakan cek kalender akademik.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dropSubjectContent" class="content-section">
+                    <div class="drop-subject-header">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#currentSubjects">Mata Kuliah Aktif</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#droppedSubjects">Mata Kuliah Dihapus</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="currentSubjects">
+                            <div class="drop-subject-table-container">
+                                <table class="drop-subject-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode MK</th>
+                                            <th>Nama Mata Kuliah</th>
+                                            <th>SKS</th>
+                                            <th>Dosen</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>IF101</td>
+                                            <td>Algoritma & Pemrograman</td>
+                                            <td>3</td>
+                                            <td>Dr. Budi Santoso</td>
+                                            <td><button class="drop-btn">Hapus</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>IF102</td>
+                                            <td>Struktur Data</td>
+                                            <td>3</td>
+                                            <td>Prof. Citra Dewi</td>
+                                            <td><button class="drop-btn">Hapus</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>MA101</td>
+                                            <td>Matematika Diskrit</td>
+                                            <td>3</td>
+                                            <td>Ir. Diana Putri</td>
+                                            <td><button class="drop-btn">Hapus</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="droppedSubjects">
+                            <div class="drop-subject-table-container">
+                                <table class="drop-subject-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode MK</th>
+                                            <th>Nama Mata Kuliah</th>
+                                            <th>SKS</th>
+                                            <th>Tanggal Dihapus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>BI101</td>
+                                            <td>Bahasa Inggris I</td>
+                                            <td>2</td>
+                                            <td>2025-02-10</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="viewGradeContent" class="content-section">
+                    <div class="transcript-header">
+                        <span>View Grade (Transcript)</span>
+                        <div class="btn-group" role="group" aria-label="View options">
+                            <button type="button" class="btn btn-secondary active">Per Semester</button>
+                            <button type="button" class="btn btn-secondary">Kumulatif</button>
+                        </div>
+                    </div>
+                    <div class="transcript-table-container">
+                        <table class="transcript-table">
+                            <thead>
+                                <tr>
+                                    <th>Kode MK</th>
+                                    <th>Nama Mata Kuliah</th>
+                                    <th>SKS</th>
+                                    <th>Nilai Huruf</th>
+                                    <th>Nilai Angka</th>
+                                    <th>Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="semester-row">
+                                    <td colspan="6">Semester Ganjil 2024/2025</td>
+                                </tr>
+                                <tr>
+                                    <td>IF101</td>
+                                    <td>Algoritma & Pemrograman</td>
+                                    <td>3</td>
+                                    <td>A</td>
+                                    <td>4.00</td>
+                                    <td>12.00</td>
+                                </tr>
+                                <tr>
+                                    <td>IF102</td>
+                                    <td>Struktur Data</td>
+                                    <td>3</td>
+                                    <td>B+</td>
+                                    <td>3.50</td>
+                                    <td>10.50</td>
+                                </tr>
+                                <tr>
+                                    <td>MA101</td>
+                                    <td>Matematika Diskrit</td>
+                                    <td>3</td>
+                                    <td>A-</td>
+                                    <td>3.70</td>
+                                    <td>11.10</td>
+                                </tr>
+                                <tr class="total-grade-row">
+                                    <td colspan="2">Total SKS Semester:</td>
+                                    <td>9</td>
+                                    <td colspan="2">IPS Semester:</td>
+                                    <td>3.73</td>
+                                </tr>
+                                <tr class="semester-row">
+                                    <td colspan="6">Semester Genap 2024/2025</td>
+                                </tr>
+                                <tr>
+                                    <td>IF103</td>
+                                    <td>Basis Data</td>
+                                    <td>3</td>
+                                    <td>B</td>
+                                    <td>3.00</td>
+                                    <td>9.00</td>
+                                </tr>
+                                <tr>
+                                    <td>IF104</td>
+                                    <td>Jaringan Komputer</td>
+                                    <td>3</td>
+                                    <td>A</td>
+                                    <td>4.00</td>
+                                    <td>12.00</td>
+                                </tr>
+                                <tr class="total-grade-row">
+                                    <td colspan="2">Total SKS Kumulatif:</td>
+                                    <td>6</td>
+                                    <td colspan="2">IPS Semester:</td>
+                                    <td>3.50</td>
+                                </tr>
+                                <tr class="total-grade-row">
+                                    <td colspan="2">Total SKS Kumulatif:</td>
+                                    <td>15</td>
+                                    <td colspan="2">IPK Kumulatif:</td>
+                                    <td>3.65</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="teacherEvaluationContent" class="content-section">
+                    <div class="teacher-evaluation-header">
+                        Teacher Evaluation
+                    </div>
+                    <div class="teacher-evaluation-message-box">
+                        <i class="fas fa-info-circle icon"></i>
+                        <div>
+                            <p>Periode evaluasi dosen belum dibuka. Silakan cek informasi di kalender akademik.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="viewOspekKKNKkuContent" class="content-section">
+                    <div class="ospek-kkn-header">
+                        View Ospek & KKN KKU
+                    </div>
+                    <div class="ospek-kkn-table-container">
+                        <table class="ospek-kkn-table">
+                            <thead>
+                                <tr>
+                                    <th>Jenis Kegiatan</th>
+                                    <th>Tahun</th>
+                                    <th>Status</th>
+                                    <th>Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Orientasi Studi Pengenalan Kampus (Ospek)</td>
+                                    <td>2024</td>
+                                    <td>Selesai</td>
+                                    <td>Telah mengikuti seluruh rangkaian kegiatan Ospek.</td>
+                                </tr>
+                                <tr>
+                                    <td>Kuliah Kerja Nyata (KKN)</td>
+                                    <td>2027</td>
+                                    <td>Belum Terdaftar</td>
+                                    <td>Wajib diikuti pada semester 6.</td>
+                                </tr>
+                                <tr>
+                                    <td>Kuliah Kerja Usaha (KKU)</td>
+                                    <td>2027</td>
+                                    <td>Belum Terdaftar</td>
+                                    <td>Wajib diikuti pada semester 6.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.sidebar .nav-link, .navbar-nav .nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            function showContent(targetId) {
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // Update active state for sidebar links
+                document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`.sidebar .nav-link[data-target="${targetId}"]`)?.classList.add('active');
+
+                // Update active state for top navbar links (if applicable)
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`.navbar-nav .nav-link[data-target="${targetId}"]`)?.classList.add('active');
+
+                // Call document completeness update if it's the My Document section
+                if (targetId === 'myDocumentContent') {
+                    setTimeout(updateDocumentCompleteness, 50);
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.dataset.target;
+                    if (targetId) {
+                        showContent(targetId);
+                    }
+                });
+            });
+
+            showContent('homeContent');
+        });
+
+        function updateDocumentCompleteness() {
+            const totalDocs = document.querySelectorAll('.document-item').length;
+            const completedDocs = document.querySelectorAll('.document-item[data-status="Completed"]').length;
+            const percentage = totalDocs > 0 ? (completedDocs / totalDocs) * 100 : 0;
+
+            document.getElementById('overallDocCompletion').textContent = percentage.toFixed(0);
+            document.getElementById('completedDocCount').textContent = completedDocs;
+            document.getElementById('totalDocCount').textContent = totalDocs;
+            document.getElementById('docProgressBar').style.width = percentage.toFixed(0) + '%';
+            document.getElementById('docProgressBar').setAttribute('aria-valuenow', percentage.toFixed(0));
+        }
+
+        document.addEventListener('DOMContentLoaded', updateDocumentCompleteness);
+    </script>
+</body>
+</html>
